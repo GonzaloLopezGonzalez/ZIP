@@ -60,6 +60,10 @@ class Zip{
           $folder .= '/';
         }
         $options = array('add_path' => "$folder", 'remove_all_path' => TRUE);
+        if (!empty($password)){
+          $options['enc_method'] = ZipArchive::EM_AES_256;
+          $options['enc_password'] = $password;
+        }
         $this->zip->addGlob("$folder*.*", GLOB_BRACE, $options);
      }else{
          throw new Exception('No existe la ruta.');
